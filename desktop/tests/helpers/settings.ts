@@ -14,7 +14,8 @@ type SettingsSection =
   | "tokens"
   | "community-members"
   | "mobile"
-  | "updates";
+  | "updates"
+  | "product-info";
 
 export async function openProfileMenu(page: Page) {
   await page.getByTestId("open-settings").click();

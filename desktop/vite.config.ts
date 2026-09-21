@@ -3,6 +3,8 @@ import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
 
+import { resolveBuildInfo } from "./scripts/build-info.mjs";
+
 const host = process.env.TAURI_DEV_HOST;
 
 // https://vite.dev/config/
@@ -11,7 +13,15 @@ export default defineConfig(async ({ mode }) => {
   const protectedFeaturesEnabled =
     (process.env.VITE_BUZZ_BESTIE ?? modeEnv.VITE_BUZZ_BESTIE) === "1";
 
+  // Build provenance shown in Settings → Product info. Resolved once per
+  // config load so every chunk stamps the same commit and timestamp.
+  const buildInfo = resolveBuildInfo({ env: { ...modeEnv, ...process.env } });
+
   return {
+    define: {
+      __BUZZ_FORK_COMMIT__: JSON.stringify(buildInfo.commit),
+      __BUZZ_BUILD_TIME__: JSON.stringify(buildInfo.builtAt),
+    },
     plugins: [
       tanstackRouter({
         target: "react",

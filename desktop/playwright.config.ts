@@ -40,6 +40,7 @@ export default defineConfig({
         "**/add-community-screenshots.spec.ts",
         "**/hosted-communities-settings-screenshots.spec.ts",
         "**/invites-settings-screenshots.spec.ts",
+        "**/product-info-settings-screenshots.spec.ts",
         "**/messaging.spec.ts",
         "**/bestie.spec.ts",
         "**/message-feedback-snapshots.spec.ts",
