@@ -8,6 +8,7 @@ import {
   Cpu,
   Download,
   FlaskConical,
+  Info,
   Keyboard,
   LayoutTemplate,
   MessagesSquare,
@@ -76,6 +77,7 @@ import {
   SettingsOptionRow,
 } from "./SettingsOptionGroup";
 import { SegmentedControl } from "@/shared/ui/segmented-control";
+import { ProductInfoCard } from "./ProductInfoCard";
 import { ProfileSettingsCard } from "./ProfileSettingsCard";
 import { UpdateChecker } from "../UpdateChecker";
 import { SettingsSectionHeader } from "./SettingsSectionHeader";
@@ -97,7 +99,8 @@ export type SettingsSection =
   | "custom-emoji"
   | "local-archive"
   | "mobile"
-  | "updates";
+  | "updates"
+  | "product-info";
 
 export const DEFAULT_SETTINGS_SECTION: SettingsSection = "profile";
 
@@ -118,6 +121,7 @@ const SETTINGS_SECTION_VALUES: readonly SettingsSection[] = [
   "local-archive",
   "mobile",
   "updates",
+  "product-info",
 ];
 
 export function isSettingsSection(value: unknown): value is SettingsSection {
@@ -233,6 +237,11 @@ export const settingsSections: SettingsSectionDescriptor[] = [
     value: "updates",
     label: "Updates",
     icon: Download,
+  },
+  {
+    value: "product-info",
+    label: "Product info",
+    icon: Info,
   },
 ];
 
@@ -858,6 +867,8 @@ export function renderSettingsSection(
       return <MobilePairingCard currentPubkey={props.currentPubkey} />;
     case "updates":
       return <UpdateChecker />;
+    case "product-info":
+      return <ProductInfoCard />;
     default: {
       const exhaustiveCheck: never = section;
       return exhaustiveCheck;
